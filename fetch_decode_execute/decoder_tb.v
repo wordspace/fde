@@ -1,10 +1,13 @@
 `timescale 1ns / 100ps
+
 module decoder_tb;
 
 // Inputs
 reg [63:0] IF_ID; 
 reg clock;
-wire [191:0] ID_EX;
+
+// Outputs from the DUT are wire type!!
+wire [175:0] ID_EX;
 
 // Instantiate the Unit Under Test (UUT)
 decoder uut (

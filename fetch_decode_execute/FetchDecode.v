@@ -3,7 +3,7 @@
 module fetch_decode(
 	input CLOCK,
 	input RESET,
-	output [191:0] ID_EX
+	output [175:0] ID_EX
 	);
 
 wire [63:0] IF_ID;
