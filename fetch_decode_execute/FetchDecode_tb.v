@@ -7,7 +7,7 @@ reg CLOCK;
 reg RESET;
 
 // Outputs
-wire [175:0] ID_EX;
+wire [180:0] ID_EX;
 
 // Instantiate the Unit Under Test (UUT)
 fetch_decode uut (
@@ -35,7 +35,7 @@ RESET = 1;
 end
 always
 begin
-#1 CLOCK = ~CLOCK;
+#10 CLOCK = ~CLOCK;
 end
       
 endmodule

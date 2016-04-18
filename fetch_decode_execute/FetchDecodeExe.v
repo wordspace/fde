@@ -3,11 +3,11 @@
 module fetch_decode_exe(
 	input clock,
 	input reset,
-	output [175:0] ID_EX
+	output [180:0] ID_EX
 	);
-
+//
 wire [63:0] IF_ID;
-wire [175:0] ID_EX;
+wire [180:0] ID_EX;
 output [127:0] EX_WB;
 
 

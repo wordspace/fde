@@ -7,7 +7,7 @@ reg [63:0] IF_ID;
 reg clock;
 
 // Outputs from the DUT are wire type!!
-wire [175:0] ID_EX;
+wire [180:0] ID_EX;
 
 // Instantiate the Unit Under Test (UUT)
 decoder uut (
@@ -26,9 +26,8 @@ $finish;
 // Add stimulus here
 end
 
-always
-begin
-#5 clock = ~clock;
+always begin
+#10 clock = ~clock;
 end
       
 endmodule
