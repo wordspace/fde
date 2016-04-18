@@ -23,14 +23,14 @@ data_rf[0] = 32'hAAAAAAAA; //source bits
 data_rf[1] = 32'hFFFFFFFF; //target bits
 end
 
-/*initial begin
+initial begin
 #2
 $dumpfile("decoder.vcd");
 $dumpvars;
 #100  //time spent sampling
 $finish;
 end
-*/
+
 always @ (posedge clock) begin
 ID_EX[31:0] <= IF_ID[63:32]; 						//PC goes straight to ID_EX
 ID_EX[63:32] <= data_rf[IF_ID[25:21]]; 				//source bits    (rs)

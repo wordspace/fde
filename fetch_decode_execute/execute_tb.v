@@ -1,31 +1,41 @@
 `timescale 1ns / 100ps
 
-module fetch_decode_tb;
+module execution;
 
 // Inputs
 reg clock;
 reg reset;
+reg [180:0] ID_EX;
 
 // Outputs
-wire [180:0] ID_EX;
+wire [180:0] EX_WB;
+
 
 // Instantiate the Unit Under Test (UUT)
-fetch_decode uut (
+execute uut (
 .clock(clock), 
 .reset(reset), 
-.ID_EX(ID_EX)
+.ID_EX(ID_EX),
+.EX_WB(EX_WB)
 );
+
+initial begin
+ID_EX <= 64'hFFFFFFFFFFFFFFFF;
+clock <= 0;
+#100;
+$finish;
+end
 
 initial begin
 #1
 $dumpvars;
 #100    //this line sets the amount of time we want to record waves for
-$finish;	// comment this initial block out for xilinx use
+$finish;    // comment this initial block out for xilinx use
 end
 
 initial begin
 // Initialize Inputs
-$dumpfile("fetch_decode.vcd"); // this is for iverilog  comment out for xilinx
+$dumpfile("execute.vcd"); // this is for iverilog  comment out for xilinx
 clock = 0;
 reset = 1;
 #15 reset = 0;
@@ -37,5 +47,5 @@ always
 begin
 #10 clock = ~clock;
 end
-      
 endmodule
+      

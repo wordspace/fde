@@ -8,13 +8,13 @@ module fetch(
 	);
 output reg [31:0] pc;
 reg [31:0] IR[127:0];
-/*initial begin
+initial begin
 #3
 $dumpvars;
 #100  //this line sets the amount of time we want to record waves for
 $finish;
 end
-*/
+
 
 /*integer i;
 initial begin
@@ -27,7 +27,7 @@ for (i=0; i<128; i=i+1)
 pc [31:0] <= 32'b0;
 end*/
 initial begin
-//$dumpfile("fetch.vcd");
+$dumpfile("fetch.vcd");
 IR[0] <= 32'h0AAAAAAA;
 IR[1] <= 32'h0BBBBBBB;
 IR[2] <= 32'h0CCCCCCC;

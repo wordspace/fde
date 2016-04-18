@@ -12,6 +12,6 @@ output [127:0] EX_WB;
 
 
 fetch IF1(CLOCK, RESET, IF_ID);
-decoder ID1(IF_ID, CLOCK, ID_EX);
-execute EX1(ID_EX, CLOCK, RESET, EX_WB);
+decoder ID1(IF_ID, clock, ID_EX);
+execute EX1(ID_EX, clock, RESET, EX_WB);
 

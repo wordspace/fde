@@ -1,8 +1,8 @@
 `timescale 1ns / 100ps
 
 module fetch_decode(
-	input CLOCK,
-	input RESET,
+	input clock,
+	input reset,
 	output [180:0] ID_EX
 	);
 
@@ -16,6 +16,6 @@ $dumpvars;
 $finish;
 end*/
 
-fetch IF1(CLOCK, RESET, IF_ID);
-decoder ID1(IF_ID, CLOCK, ID_EX);
+fetch IF1(clock, reset, IF_ID);
+decoder ID1(IF_ID, clock, ID_EX);
 endmodule
