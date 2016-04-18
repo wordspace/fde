@@ -44,11 +44,11 @@ case(ID_EX[175:160])
 	begin
 		EX_WB[31:0] = ID_EX[63:32] | ID_EX[95:64];
 	end 
-/*16'h8:	// XOR
+16'h8:	// XOR
 	begin
 		EX_WB[31:0] = ID_EX[63:32] ^ ID_EX[95:64];
 	end
-16'h9: 	// BR "unconditional jump"
+/*16'h9: 	// BR "unconditional jump"
 	begin
 		EX_WB[31:0] <= 
 	end	
@@ -66,12 +66,12 @@ case(ID_EX[175:160])
 16'hC: 	// ADI
 	begin
 		EX_WB[31:0] = 
-	end
+	end*/
 16'hD: 	// MUL
 	begin
 		EX_WB[31:0] = ID_EX[63:32] * ID_EX[95:64];
 	end
-16'hE: 	// HLT
+/*16'hE: 	// HLT
 	begin
 		EX_WB[31:0] =
 	end  */
