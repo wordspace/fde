@@ -8,19 +8,21 @@ module decoder(
 
 // Create data_rf memory and initialize to zero.
 reg [31:0] data_rf[31:0];
+//eg branchFlag;
 integer i;
+//reg [5:0] OP;
 
-initial begin #17 ID_EX[175:160] <= 16'b0; //just added this 1110pm
-end
+//initial begin #17 ID_EX[175:160] <= 16'b0; //just added this 1110pm
+//end
 
 initial
 begin
-data_rf[0] = 32'hDEADAAAA; //source bits
-data_rf[1] = 32'hDEADBBBB;	// target bits
-data_rf[3] = 32'hDEADCCCC;
-
-
-for(i=2;i<32; i=i+1)
+data_rf[0] = 32'h01111111; //source bits
+data_rf[1] = 32'h09999999;	// target bits
+data_rf[2] = 32'h0AAAAAAA;
+data_rf[3] = 32'h0BBBBBBB;
+data_rf[4] = 32'h0CCCCCCC;
+for(i=5;i<32; i=i+1) 	// Initialize to zero just to a bunch of X's on waveform
 	data_rf[i] = 32'h0;
 
 end
@@ -35,6 +37,7 @@ end
 */
 
 always @ (posedge clock) begin
+
 ID_EX[31:0] <= IF_ID[31:0]; 						// Instruction 32
 ID_EX[63:32] <= IF_ID[63:32];						//PC goes straight to ID_EX  32
 ID_EX[95:64] <= data_rf[IF_ID[25:21]];				//source bits    (rs)    32
@@ -47,7 +50,14 @@ ID_EX[159:128] <= {{16{IF_ID[15]}}, IF_ID[15:0]};   //sign extended 32 bits
 end
 
 always @ (posedge clock)
+/*OP [5:0]= IF_ID[31:26];
+if(branchFlag)
+begin
+	OP[5:0] = 6'b001110;
+end*/
+#2
 case (IF_ID[31:26])
+//case(OP[5:0])
 6'b000000: ID_EX[175:160] = 16'b0000000000000001;  //Add
 6'b000001: ID_EX[175:160] = 16'b0000000000000010;  //Sub
 6'b000010: ID_EX[175:160] = 16'b0000000000000100;  // LI

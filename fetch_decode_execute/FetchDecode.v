@@ -8,7 +8,6 @@ module fetchDecode(
 
 wire [63:0] IF_ID;
 
-
 initial begin
 $dumpfile("fetchDecode.vcd");
 #1

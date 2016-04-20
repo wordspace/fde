@@ -18,7 +18,7 @@ decoder uut (
 
 initial begin
 // Initialize Inputs
-IF_ID <= 64'hFFFF0000FFFF0000;
+IF_ID <= 64'h0;
 clock <= 0;
 // Wait 100 ns for global reset to finish
 #100;
