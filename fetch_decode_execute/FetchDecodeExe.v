@@ -3,15 +3,15 @@
 module fetch_decode_exe(
 	input clock,
 	input reset,
-	output [180:0] ID_EX
+	output [175:0] ID_EX
 	);
 //
 wire [63:0] IF_ID;
-wire [180:0] ID_EX;
-output [127:0] EX_WB;
+wire [175:0] ID_EX;
+output [69:0] EX_WB;
 
 
-fetch IF1(CLOCK, RESET, IF_ID);
+fetch IF1(clock, reset, IF_ID);
 decoder ID1(IF_ID, clock, ID_EX);
-execute EX1(ID_EX, clock, RESET, EX_WB);
+execute EX1(ID_EX, clock, reset, EX_WB);
 

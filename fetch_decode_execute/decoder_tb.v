@@ -7,7 +7,7 @@ reg [63:0] IF_ID;
 reg clock;
 
 // Outputs from the DUT are wire type!!
-wire [180:0] ID_EX;
+wire [175:0] ID_EX;
 
 // Instantiate the Unit Under Test (UUT)
 decoder uut (

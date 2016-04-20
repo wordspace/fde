@@ -5,10 +5,10 @@ module execution;
 // Inputs
 reg clock;
 reg reset;
-reg [180:0] ID_EX;
+reg [175:0] ID_EX;
 
 // Outputs
-wire [180:0] EX_WB;
+wire [70:0] EX_WB;
 
 
 // Instantiate the Unit Under Test (UUT)
@@ -22,7 +22,7 @@ execute uut (
 initial begin
 ID_EX <= 64'hFFFFFFFFFFFFFFFF;
 clock <= 0;
-#100;
+#100
 $finish;
 end
 

@@ -1,45 +1,44 @@
 `timescale 1ns / 100ps
 
 module decoder(
-	input [63:0] IF_ID,
 	input clock,
-	output reg [180:0] ID_EX
+	input [63:0] IF_ID,	
+	output reg [175:0] ID_EX
 	);
 
 // Create data_rf memory and initialize to zero.
 reg [31:0] data_rf[31:0];
 integer i;
-/*initial begin
-$dumpfile("decoder.vcd");
-for (i=0; i<32; i=i+1)
-	begin
-	data_rf[i] <= 32'h0; //32'b0;
-	end
-	end*/
 
 initial
 begin
 data_rf[0] = 32'hAAAAAAAA; //source bits
-data_rf[1] = 32'hFFFFFFFF; //target bits
+data_rf[1] = 32'hFFFFFFFF;	// target bits
+data_rf[3] = 32'h66666666;
+
+for(i=2;i<32; i=i+1)
+	data_rf[i] = 32'h0;
+
 end
 
 initial begin
-#2
-$dumpfile("decoder.vcd");
-$dumpvars;
+#5
+//$dumpfile("decoder.vcd");
+//$dumpvars;
 #100  //time spent sampling
 $finish;
 end
 
 always @ (posedge clock) begin
-ID_EX[31:0] <= IF_ID[63:32]; 						//PC goes straight to ID_EX
-ID_EX[63:32] <= data_rf[IF_ID[25:21]]; 				//source bits    (rs)
-ID_EX[95:64] <= data_rf[IF_ID[20:16]];  			//target bits	 (rt)
-ID_EX[100:96] <= IF_ID[15:11];  					//address of destination (rd)
-ID_EX[111:101] <= IF_ID[10:0];  					//branch offset 11 bit
-ID_EX[127:112] <= IF_ID[15:0];  					//immediate 32 bits
+ID_EX[31:0] <= IF_ID[31:0]; 						// Instruction 32
+ID_EX[63:32] <= IF_ID[63:32];						//PC goes straight to ID_EX  32
+ID_EX[95:64] <= data_rf[IF_ID[25:21]];				//source bits    (rs)    32
+ID_EX[127:96] <= data_rf[IF_ID[20:16]];  			//target bits	 (rt)    32
 ID_EX[159:128] <= {{16{IF_ID[15]}}, IF_ID[15:0]};   //sign extended 32 bits
-ID_EX[180:176] <= IF_ID[10:6];   					// 5 bits of shift amount
+//IF_ID[15:11] 										//address of destination (rd)  5
+//IF_ID[10:0]										//branch offset 11 bit      
+//IF_ID[15:0]										//immediate 32 bits
+// IF_ID[10:6];  									// 5 bits of shift amount
 end
 
 always @ (posedge clock)
