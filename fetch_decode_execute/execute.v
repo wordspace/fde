@@ -9,20 +9,23 @@ module execute(
 initial begin
 EX_WB[68:64] = ID_EX[100:96];	// 5 address Destination bits go straight through
 EX_WB[63:32] = ID_EX[63:32];
-EX_WB[69:69] = 1'b0;
-EX_WB[70:70] = 1'b0;
+EX_WB[69:69] = 1'b0; // branch enable / "branchFlag"
+EX_WB[70:70] = 1'b0; // writeback flag/enable
 end
+reg branchFlag;
+reg writeBack;
 
-
+//	Need to find a way to test branchflag first and perfrom NOP if it is high
 always @ (posedge clock)begin
-if(branchFlag)begin
-ID_EX[175:160] = 16'hF;
-end
+//if(branchFlag)begin
+//ID_EX[175:160] = 16'b0100000000000000;
+//end
 
 case(ID_EX[175:160])
 16'h1:							// Add
 	begin
 		EX_WB[31:0] = ID_EX[95:64] + ID_EX[63:32]; //95-64 is the source bits
+		//writeBack = ;
 	end
 16'h2:							// Sub			   //127-96 is target bits
 	begin
@@ -37,53 +40,53 @@ case(ID_EX[175:160])
 		EX_WB[31:0] = ID_EX[95:64] << ID_EX[10:6];
 
 	end 
-16'hF:							// Shift Right
+16'h10:							// Shift Right
 	begin
 		EX_WB[31:0] = ID_EX[95:64] >> ID_EX[10:6];
 	end
-16'h32: 							// AND
+16'h20: 							// AND
 	begin
 		EX_WB[31:0] = ID_EX[63:32] & ID_EX[95:64];
 	end
-16'h64: 							// OR
+16'h40: 							// OR
 	begin
 		EX_WB[31:0] = ID_EX[63:32] | ID_EX[95:64];
 	end 
-16'h128:							// XOR
+16'h80:							// XOR
 	begin
 		EX_WB[31:0] = ID_EX[63:32] ^ ID_EX[95:64];
 	end
-16'h9: 							// BR "unconditional jump"
+16'h100: 							// BR "unconditional jump"
 	begin
 		EX_WB[63:32] <= ID_EX[63:32] + {ID_EX[9:0],ID_EX[25:0]};		// pc in EX_WB is 
 		branchFlag = ID_EX[168];
 		EX_WB[69]=branchFlag;
 	end	
-16'hA: 							// Branch if not equal to (J-type)
+16'h200: 							// Branch if not equal to (J-type)
 	begin
 		if(ID_EX[63:32]!=ID_EX[95:64]) 
 			begin
-				EX_WB[63:32] = 32'hAAAAAAAA;
+				EX_WB[63:32] = 32'hAAAAAAAA;  //replace this only there for debug
 			end
 	end					
-16'hB: 	// MOV
+16'h400: 	// MOV
 	begin
 		EX_WB[31:0] =  ID_EX[95:64]; // write this backto the target bits in data_rf
 		
 	end
-16'hC: 	// ADI
+16'h800: 	// ADI
 	begin
 		EX_WB[31:0] = ID_EX[159:28] + ID_EX[95:64];  // add the 32 bit immediate sign extended with the source and place in target.
 	end
-16'hD: 	// MUL
+16'h1000: 	// MUL
 	begin
 		EX_WB[31:0] = ID_EX[63:32] * ID_EX[95:64];
 	end
-16'hE: 	// HLT
+16'h2000: 	// HLT
 	begin
 		$stop;
 	end  
-16'hF: 	// NOP
+16'h4000: 	// NOP
 	begin
 	end
 endcase
