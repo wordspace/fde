@@ -19,7 +19,6 @@ if(branchFlag)begin
 ID_EX[175:160] = 16'hF;
 end
 
-
 case(ID_EX[175:160])
 16'h1:							// Add
 	begin
@@ -29,28 +28,28 @@ case(ID_EX[175:160])
 	begin
 		EX_WB[31:0] = ID_EX[95:64] - ID_EX[63:32]; 	
 	end
-16'h2: 							// Load Immediate
+16'h4: 							// Load Immediate
 	begin
 		EX_WB[31:0] = ID_EX[15:0];		// Load immediate first 16 bits into register
 	end 
-16'h4: 							// Shift Left
+16'h8: 							// Shift Left
 	begin
 		EX_WB[31:0] = ID_EX[95:64] << ID_EX[10:6];
 
 	end 
-16'h5:							// Shift Right
+16'hF:							// Shift Right
 	begin
 		EX_WB[31:0] = ID_EX[95:64] >> ID_EX[10:6];
 	end
-16'h6: 							// AND
+16'h32: 							// AND
 	begin
 		EX_WB[31:0] = ID_EX[63:32] & ID_EX[95:64];
 	end
-16'h7: 							// OR
+16'h64: 							// OR
 	begin
 		EX_WB[31:0] = ID_EX[63:32] | ID_EX[95:64];
 	end 
-16'h8:							// XOR
+16'h128:							// XOR
 	begin
 		EX_WB[31:0] = ID_EX[63:32] ^ ID_EX[95:64];
 	end
@@ -62,7 +61,7 @@ case(ID_EX[175:160])
 	end	
 16'hA: 							// Branch if not equal to (J-type)
 	begin
-		if(ID_EX[63:32]!=ID_EX[95:64])
+		if(ID_EX[63:32]!=ID_EX[95:64]) 
 			begin
 				EX_WB[63:32] = 32'hAAAAAAAA;
 			end

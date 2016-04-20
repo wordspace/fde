@@ -10,24 +10,29 @@ module decoder(
 reg [31:0] data_rf[31:0];
 integer i;
 
+initial begin #17 ID_EX[175:160] <= 16'b0; //just added this 1110pm
+end
+
 initial
 begin
-data_rf[0] = 32'hAAAAAAAA; //source bits
-data_rf[1] = 32'hFFFFFFFF;	// target bits
-data_rf[3] = 32'h66666666;
+data_rf[0] = 32'hDEADAAAA; //source bits
+data_rf[1] = 32'hDEADBBBB;	// target bits
+data_rf[3] = 32'hDEADCCCC;
+
 
 for(i=2;i<32; i=i+1)
 	data_rf[i] = 32'h0;
 
 end
-
+/*
 initial begin
 #5
 //$dumpfile("decoder.vcd");
 //$dumpvars;
-#100  //time spent sampling
+#300  //time spent sampling
 $finish;
 end
+*/
 
 always @ (posedge clock) begin
 ID_EX[31:0] <= IF_ID[31:0]; 						// Instruction 32

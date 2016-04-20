@@ -16,6 +16,8 @@ $dumpvars;
 $finish;
 end*/
 
+
+
 /*initial begin //set IR reg manually
 $dumpfile("fetch.vcd");
 IR[0] <= 32'h0AAAAAAA;
@@ -30,6 +32,8 @@ end*/
 
 initial begin  //set IR reg with loop
 //$dumpfile("fetch.vcd");
+IF_ID <= 64'hEEEEEEEEEEEEEEEE;   // COMMENT THIS OUT LATER IF NEEDED IT SETS THE BITS
+// THE IF_ID LATCH SO WE CAN SEE THEM EASIER IN THE WAVEFORM
 IR[0] <= 32'h0AAAAAAA;
 IR[1] <= 32'h0BBBBBBB;
 IR[2] <= 32'h0CCCCCCC;

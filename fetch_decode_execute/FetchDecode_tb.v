@@ -27,23 +27,25 @@ end*/
 
 initial begin
 // Initialize Inputs
-//IF_ID <= 64'hFFFF0000FFFF0000;
+
 clock <= 0;
+reset = 1;
+#15 reset = 0;
 // Wait 100 ns for global reset to finish
-#100;
+#500;
 $finish;        
 // Add stimulus here
 end
 
-initial begin
 // Initialize Inputs
-
+/*initial begin
 clock = 0;
 reset = 1;
 #15 reset = 0;
 // Wait 100 ns for global reset to finish
-#100;
-end
+#100
+$finish
+*/
 
 always
 begin
