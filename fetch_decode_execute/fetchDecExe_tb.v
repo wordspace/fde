@@ -35,12 +35,12 @@ reset = 1;
 //EX_WB[69:0] <= 70'b0;
 #15 reset = 0;
 // Wait 100 ns for global reset to finish
-#130;
+#100;
 end
 
 always
 begin
-#10 clock = ~clock;
+#6 clock = ~clock;
 end
 endmodule
       

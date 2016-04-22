@@ -60,7 +60,7 @@ case(ID_EX[175:160])
 	end
 16'b0000000100000000: 							// BR "unconditional jump"
 	begin
-		EX_WB[63:32] <= ID_EX[63:32] + {ID_EX[9:0],ID_EX[25:0]};		// pc in EX_WB is 
+		EX_WB[63:32] <= ID_EX[63:32] + {ID_EX[9:0],ID_EX[25:10]};		// pc in EX_WB is 
 		//branchFlag = ID_EX[168];
 		//EX_WB[69]=branchFlag;
 	end	
@@ -68,7 +68,7 @@ case(ID_EX[175:160])
 	begin
 		if(ID_EX[63:32]!=ID_EX[95:64]) 
 			begin
-				EX_WB[63:32] = 32'hAAAAAAAA;  //replace this only there for debug
+				EX_WB[63:32] = ID_EX[63:32] + ID_EX[159:128];  // add the sign extended immediate to the pc 
 			end
 	end					
 16'b0000010000000000: 	// MOV

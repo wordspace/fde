@@ -49,13 +49,13 @@ ID_EX[159:128] <= {{16{IF_ID[15]}}, IF_ID[15:0]};   //sign extended 32 bits
 // IF_ID[10:6];  									// 5 bits of shift amount
 end
 
-always @ (posedge clock)
+always @ (posedge clock)begin
 /*OP [5:0]= IF_ID[31:26];
 if(branchFlag)
 begin
 	OP[5:0] = 6'b001110;
 end*/
-#2
+//#2
 case (IF_ID[31:26])
 //case(OP[5:0])
 6'b000000: ID_EX[175:160] = 16'b0000000000000001;  //Add
@@ -73,5 +73,7 @@ case (IF_ID[31:26])
 6'b001100: ID_EX[175:160] = 16'b0001000000000000;  //MUL
 6'b001101: ID_EX[175:160] = 16'b0010000000000000;  //HLT
 6'b001110: ID_EX[175:160] = 16'b0100000000000000;  //NOP
+//6'b001111: ID_EX[175:160] = 16'b1011111011101111; // 0xBEEF for easy verify
 endcase
+end
 endmodule

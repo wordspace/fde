@@ -9,8 +9,15 @@ module fetch(
 input branchFlag;
 output reg [31:0] pc;
 reg [31:0] IR[127:0];
+initial begin
+ IR[0] <= 32'b00111100000000000000000000000000; //32'h0AAAAAAA;
+  IR[1] <= 32'h0BBBBBBB;
+  IR[2] <= 32'h0CCCCCCC;
+  //IR[3] <= 32'b00111100000000000000000000000000;
+ #1pc [31:0] <= 32'b0;
+  end
 
-initial begin  //set IR reg with loop
+/*initial begin  //set IR reg with loop
 //$dumpfile("fetch.vcd");
 //IF_ID <= 64'hEEEEEEEEEEEEEEEE;   // COMMENT THIS OUT LATER IF NEEDED IT SETS THE BITS
 // THE IF_ID LATCH SO WE CAN SEE THEM EASIER IN THE WAVEFORM
@@ -50,6 +57,7 @@ IR[31] <= 32'h0FFFFFFF;
 //#1
 #1pc [31:0] <= 32'b0;
 end
+*/
 
 
 
