@@ -22,7 +22,7 @@ initial begin
 $dumpfile("fetchDecExe.vcd"); // this is for iverilog  comment out for xilinx
 #1
 $dumpvars;
-#150    //
+#920    //
 $finish;    // comment this initial block out for xilinx use
 end
 
@@ -31,16 +31,14 @@ initial begin
 clock = 0;
 reset = 1;
 
-//IF_ID <= 64'hDDDDDDDDDDDDDDDD;
-//EX_WB[69:0] <= 70'b0;
 #15 reset = 0;
 // Wait 100 ns for global reset to finish
-#100;
+#900;
 end
 
 always
 begin
-#4 clock = ~clock;
+#5 clock = ~clock;
 end
 endmodule
       

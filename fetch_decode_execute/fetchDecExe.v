@@ -12,6 +12,4 @@ wire [70:0] EX_WB;
 fetch fetch(clock,reset, EX_WB, IF_ID);
 decoder decoder(clock, IF_ID, EX_WB,ID_EX);
 execute execute(clock, ID_EX, EX_WB);
-
-
 endmodule
